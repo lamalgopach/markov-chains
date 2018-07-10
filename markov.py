@@ -14,8 +14,9 @@ def open_and_read_file(file_path):
     text_string = ""
 
     for line in file:
-    	line = line.strip()
-    	text_string += line
+    	line = line.strip(" ")
+    	text_string += line 
+    # print(text_string)
 
     return text_string
 
@@ -44,10 +45,16 @@ def make_chains(text_string):
         >>> chains[('there','juanita')]
         [None]
     """
-
     chains = {}
+    text_string = text_string.split()
 
-    # your code goes here
+    for word in range(len(text_string)-2):
+    	word_key = (text_string[word],text_string[word+1])
+
+    	if word_key in chains:
+    		chains[word_key] += [text_string[word+2]]
+    	else:
+    		chains[word_key] = [text_string[word+2]]
 
     return chains
 
