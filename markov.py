@@ -157,7 +157,6 @@ def make_text_n(chains):
 
     key = choice(list(chains.keys()))
     words.extend(key)
-    print(words)
 
     while key in chains:
     	value = chains[key]
@@ -173,8 +172,8 @@ def make_text_n(chains):
     	
     
 
-    return " ".join(words)
-
+    output_text = " ".join(words)
+    return output_text.capitalize()
 
 
 #input_path = "gettysburg.txt"
