@@ -48,9 +48,12 @@ def make_chains(text_string):
     chains = {}
     text_string = text_string.split()
 
+
     for word in range(len(text_string)-2):
+    	#making tuples out of each  pair of consecutive words in the string
     	word_key = (text_string[word],text_string[word+1])
 
+    	#values in the dictionary will be lists of possible consecutive words
     	if word_key in chains:
     		chains[word_key] += [text_string[word+2]]
     	else:
@@ -64,7 +67,22 @@ def make_text(chains):
 
     words = []
 
-    # your code goes here
+    next_key = ""
+    key = choice(list(chains.keys()))
+    word1 = key[0]
+    word2 = key[1]
+
+    words.append(word1)
+    words.append(word2)
+    
+    while key in chains:
+    	value = chains[key]
+    	word3 = choice(value)
+
+    	words.append(word3)
+    	key = (word2, word3)
+    	word2 = word3
+    
 
     return " ".join(words)
 
