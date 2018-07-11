@@ -61,7 +61,7 @@ def make_chains(text_string):
 
     return chains
 
-def make_chains_n(text_string):
+def make_chains_n(text_string,n):
     """Take input text as string; return dictionary of Markov chains.
 
     A chain will be a key that consists of a tuple of (word1, word2)
@@ -89,7 +89,7 @@ def make_chains_n(text_string):
     text_string = text_string.split()
 
 
-    for word in range(len(text_string)-2):
+    for word in range(len(text_string)-n):
     	#making tuples out of each  pair of consecutive words in the string
     	#word_key = (text_string[word],text_string[word+1])
     	word_key = ()
@@ -97,17 +97,14 @@ def make_chains_n(text_string):
     	# make tuple out of 2 consecutive words using loop
     	# need to make it so that each time it takes 2 DIFFERENT indexes
 
-    	for index in range(2):
+    	for index in range(word, word+n):
     	    word_key = word_key + (text_string[index],)
-    	print (word_key)
-
-
 
     	#values in the dictionary will be lists of possible consecutive words
     	if word_key in chains:
-    		chains[word_key] += [text_string[word+2]]
+    		chains[word_key] += [text_string[word+n]]
     	else:
-    		chains[word_key] = [text_string[word+2]]
+    		chains[word_key] = [text_string[word+n]]
 
     return chains
 
@@ -147,38 +144,36 @@ def make_text(chains):
     return " ".join(words)
 
 
-# def make_text_n(chains,n):
-#     """Return text from chains.
-#     The function gets the dictionary "chains" as an input, 
-#     and returns a text as a string of randomized words as output. 
-#     The text is built in a way that every n consecutive words fit together. 
-#     (n-grams)
+def make_text_n(chains):
+    """Return text from chains.
+    The function gets the dictionary "chains" as an input, 
+    and returns a text as a string of randomized words as output. 
+    The text is built in a way that every n consecutive words fit together. 
+    (n-grams)
 		
-#     """
+    """
 
-#     words = []
+    words = []
 
-#     next_key = ""
-#     key = choice(list(chains.keys()))
-#     for in 
-#     	#add n words in key
+    key = choice(list(chains.keys()))
+    words.extend(key)
+    print(words)
 
-#     word1 = key[0]
-#     word2 = key[1]
-
-#     words.append(word1)
-#     words.append(word2)
-    
-#     while key in chains:
-#     	value = chains[key]
-#     	word3 = choice(value)
-
-#     	words.append(word3)
-#     	key = (word2, word3)
-#     	word2 = word3
+    while key in chains:
+    	value = chains[key]
+    	new_word = choice(value)
+    	# adding new randomized word to our output list
+    	words.append(new_word)
+    	# making new key, without the first item in old key and adding the new word
+    	new_key = ()
+    	for word in range(1, len(key)):
+    		new_key += (key[word],)
+    	key = new_key
+    	key += (new_word,)
+    	
     
 
-#     return " ".join(words)
+    return " ".join(words)
 
 
 
@@ -195,5 +190,9 @@ chains = make_chains(input_text)
 random_text = make_text(chains)
 
 #print(random_text)
-make_chains_n(input_text)
+chains_n = make_chains_n(input_text,5)
+
+random_text_n = make_text_n(chains_n)
+print(random_text_n)
+
 
