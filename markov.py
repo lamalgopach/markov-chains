@@ -63,7 +63,12 @@ def make_chains(text_string):
 
 
 def make_text(chains):
-    """Return text from chains."""
+    """Return text from chains.
+    The function gets the dictionary "chains" as an input, 
+    and returns a text as a string of randomized words as output. 
+    The text is built in a way that every 2 consecutive words fit together. 
+		
+    """
 
     words = []
 
